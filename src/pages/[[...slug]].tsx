@@ -6,12 +6,12 @@ import classNames from 'classnames'
 import { GetServerSideProps } from 'next'
 import Error from 'next/error'
 import Head from 'next/head'
-import Image from 'next/image'
 import Router from 'next/router'
 import { useEffect, useState } from 'react'
 import Button from '../components/Button'
 import Dropdown from '../components/Dropdown'
 import Editor from '../components/Editor'
+import GitHubIcon from '../components/GitHubIcon'
 import Snippet from '../models/Snippet'
 import { DEFAULT_LANG, GITHUB_URL, MY_TOP_LANGUAGES } from '../utils/constants'
 import { connectDatabase } from '../utils/database'
@@ -138,13 +138,19 @@ const Home = (props: Props) => {
               </div>
               <div className="flex gap-3 items-center text-slate-800 pl-3">
                 <button
-                  name="theme button"
                   className="rounded-md p-1 border border-slate-800 text-slate-800 hover:bg-slate-800 hover:text-white"
+                  aria-label="theme button"
                 >
                   <SunIcon className="h-5 w-5" />
                 </button>
-                <a href={GITHUB_URL} target="_blank" rel="noreferrer" className="flex items-center text-slate-800">
-                  <Image src="/github.svg" alt="github" width={24} height={24} />
+                <a
+                  href={GITHUB_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center text-slate-800"
+                  aria-label="github link"
+                >
+                  <GitHubIcon />
                 </a>
               </div>
             </div>

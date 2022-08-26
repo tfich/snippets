@@ -29,6 +29,7 @@ const Editor = ({ code, language, onChange }: Props) => {
     height: '100%',
     theme: 'light',
     autoFocus: true,
+    // 'aria-label': 'code edditor',
     onChange
   })
 
