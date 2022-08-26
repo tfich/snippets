@@ -5,6 +5,7 @@ import { langs } from '@uiw/codemirror-extensions-langs'
 import classNames from 'classnames'
 import { GetServerSideProps } from 'next'
 import Error from 'next/error'
+import Head from 'next/head'
 import Image from 'next/image'
 import Router from 'next/router'
 import { useEffect, useState } from 'react'
@@ -83,79 +84,87 @@ const Home = (props: Props) => {
   }, [handleKeyPress])
 
   return (
-    <div className="flex h-screen bg-white">
-      <div className="flex-1 flex flex-col overflow-hidden">
-        <header className="flex justify-between items-center py-3 px-10 border-b border-gray-300 bg-white">
-          <div
-            className={classNames('flex items-center', props.data ? 'cursor-pointer' : 'cursor-default')}
-            onClick={() => {
-              if (props.data) {
-                setState((state) => ({ ...state, copied: true }))
-                setTimeout(() => setState((state) => ({ ...state, copied: false })), 3000)
-                navigator.clipboard.writeText(window.location.href)
-              }
-            }}
-          >
-            <ScissorsIcon className="h-6 w-6 text-gray-700" />
-            <span className="text-left text-gray-700 font-bold text-xl">snippets</span>
-            {props.data && (
-              <>
-                <span className="text-left text-gray-400 font-bold text-xl px-0.5">{'/'}</span>
-                <span className="text-left text-gray-400 font-bold text-xl">{`${slug}`}</span>
-              </>
-            )}
-            <Transition
-              show={copied}
-              enter="transition-opacity duration-250"
-              enterFrom="opacity-0"
-              enterTo="opacity-100"
-              leave="transition-opacity duration-250"
-              leaveFrom="opacity-100"
-              leaveTo="opacity-0"
-            >
-              <div className="px-3 cursor-default text-slate-800">Copied!</div>
-            </Transition>
-          </div>
-          <div className="flex items-center">
-            <div className="flex gap-3 items-center text-slate-800 border-r pr-3">
-              <Dropdown
-                options={LANGUAGE_OPTIONS}
-                selected={language}
-                onChange={(selected) =>
-                  setState((state) => ({
-                    ...state,
-                    language: selected,
-                    isSavable: true
-                  }))
+    <>
+      <Head>
+        <title>{props.data ? `snippets/${props.data.slug}` : 'snippets'}</title>
+      </Head>
+      <div className="flex h-screen bg-white">
+        <div className="flex-1 flex flex-col overflow-hidden">
+          <header className="flex justify-between items-center py-3 px-10 border-b border-gray-300 bg-white">
+            <div
+              className={classNames('flex items-center', props.data ? 'cursor-pointer' : 'cursor-default')}
+              onClick={() => {
+                if (props.data) {
+                  setState((state) => ({ ...state, copied: true }))
+                  setTimeout(() => setState((state) => ({ ...state, copied: false })), 3000)
+                  navigator.clipboard.writeText(window.location.href)
                 }
-              />
-              <Button text={props.data ? 'Save' : 'Share'} disabled={!isSavable} onClick={onShareOrSave} />
+              }}
+            >
+              <ScissorsIcon className="h-6 w-6 text-gray-700" />
+              <span className="text-left text-gray-700 font-bold text-xl">snippets</span>
+              {props.data && (
+                <>
+                  <span className="text-left text-gray-400 font-bold text-xl px-0.5">{'/'}</span>
+                  <span className="text-left text-gray-400 font-bold text-xl">{`${slug}`}</span>
+                </>
+              )}
+              <Transition
+                show={copied}
+                enter="transition-opacity duration-250"
+                enterFrom="opacity-0"
+                enterTo="opacity-100"
+                leave="transition-opacity duration-250"
+                leaveFrom="opacity-100"
+                leaveTo="opacity-0"
+              >
+                <div className="px-3 cursor-default text-slate-800">Copied!</div>
+              </Transition>
             </div>
-            <div className="flex gap-3 items-center text-slate-800 pl-3">
-              <button className="rounded-md p-1 border border-slate-800 text-slate-800 hover:bg-slate-800 hover:text-white">
-                <SunIcon className="h-5 w-5" />
-              </button>
-              <a href={GITHUB_URL} target="_blank" rel="noreferrer" className="flex items-center text-slate-800">
-                <Image src="/github.svg" alt="github" width={24} height={24} />
-              </a>
+            <div className="flex items-center">
+              <div className="flex gap-3 items-center text-slate-800 border-r pr-3">
+                <Dropdown
+                  options={LANGUAGE_OPTIONS}
+                  selected={language}
+                  onChange={(selected) =>
+                    setState((state) => ({
+                      ...state,
+                      language: selected,
+                      isSavable: true
+                    }))
+                  }
+                />
+                <Button text={props.data ? 'Save' : 'Share'} disabled={!isSavable} onClick={onShareOrSave} />
+              </div>
+              <div className="flex gap-3 items-center text-slate-800 pl-3">
+                <button
+                  name="theme button"
+                  className="rounded-md p-1 border border-slate-800 text-slate-800 hover:bg-slate-800 hover:text-white"
+                >
+                  <SunIcon className="h-5 w-5" />
+                </button>
+                <a href={GITHUB_URL} target="_blank" rel="noreferrer" className="flex items-center text-slate-800">
+                  <Image src="/github.svg" alt="github" width={24} height={24} />
+                </a>
+              </div>
             </div>
+          </header>
+          <div className="flex flex-auto">
+            <Editor
+              code={code}
+              language={language}
+              onChange={(val) =>
+                setState((state) => ({
+                  ...state,
+                  code: val,
+                  isSavable: val !== (props.data?.code || '')
+                }))
+              }
+            />
           </div>
-        </header>
-        <div className="flex flex-auto">
-          <Editor
-            code={code}
-            language={language}
-            onChange={(val) =>
-              setState((state) => ({
-                ...state,
-                code: val,
-                isSavable: val !== (props.data?.code || '')
-              }))
-            }
-          />
         </div>
       </div>
-    </div>
+    </>
   )
 }
 

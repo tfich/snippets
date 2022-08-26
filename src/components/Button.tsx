@@ -9,6 +9,7 @@ type Props = {
 const Button = ({ text, disabled, onClick }: Props) => (
   <button
     type="button"
+    name="save button"
     disabled={disabled}
     onClick={onClick}
     className={classNames(

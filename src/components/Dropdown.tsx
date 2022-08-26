@@ -12,7 +12,10 @@ type Props = {
 const Dropdown = ({ options, selected, onChange }: Props) => {
   return (
     <Menu as="div" className="relative inline-block text-left">
-      <Menu.Button className="inline-flex justify-center w-full rounded-full border border-gray-300 shadow-sm px-3 py-1 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
+      <Menu.Button
+        name="language dropdown"
+        className="inline-flex justify-center w-full rounded-full border border-gray-300 shadow-sm px-3 py-1 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50"
+      >
         {selected}
         <ChevronDownIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
       </Menu.Button>
@@ -32,6 +35,7 @@ const Dropdown = ({ options, selected, onChange }: Props) => {
               <Menu.Item key={i}>
                 <button
                   type="submit"
+                  name={val}
                   className={classNames(
                     'flex flex-row justify-between w-full px-4 py-2 text-sm',
                     'hover:bg-gray-100 hover:text-gray-900 text-gray-700'
