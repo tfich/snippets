@@ -1,0 +1,12 @@
+@tailwind base;
+
+html {
+  @apply fixed overflow-hidden h-full;
+}
+
+body {
+  @apply fixed overflow-hidden w-full min-h-full;
+}
+
+@tailwind components;
+@tailwind utilities;
