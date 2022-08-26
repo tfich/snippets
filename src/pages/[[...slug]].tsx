@@ -90,7 +90,7 @@ const Home = (props: Props) => {
       </Head>
       <div className="flex h-screen bg-white">
         <div className="flex-1 flex flex-col overflow-hidden">
-          <header className="flex justify-between items-center py-3 px-10 border-b border-gray-300 bg-white">
+          <header className="flex justify-between items-center py-3 px-10 border-b border-gray-300 bg-white z-50">
             <div
               className={classNames('flex items-center', props.data ? 'cursor-pointer' : 'cursor-default')}
               onClick={() => {
@@ -149,7 +149,7 @@ const Home = (props: Props) => {
               </div>
             </div>
           </header>
-          <div className="flex flex-auto">
+          <div className="flex flex-auto z-0">
             <Editor
               code={code}
               language={language}

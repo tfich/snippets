@@ -1,5 +1,10 @@
-# [Snippets](https://github.com/tfich/snippets)
+# [Snippets](https://tfich-snippets.vercel.app/)
 
 ### TODO
 
-- [x] Completed task title
+- [x] Command-S/Control-S function
+- [ ] Dark mode
+- [ ] Encrypt snippets broswer-side
+- [ ] Mobile optimization
+- [ ] Lighthouse optimization
+- [ ] Add favicon
